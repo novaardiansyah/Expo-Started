@@ -1,5 +1,7 @@
 import { StatusBar } from 'expo-status-bar'
 import { StyleSheet, View, FlatList, ActivityIndicator } from 'react-native'
+import { Link } from 'expo-router'
+
 import DayListItem from '../components/core/DayListItem'
 
 import { useFonts, Inter_900Black } from '@expo-google-fonts/inter'
@@ -35,6 +37,8 @@ export default function HomeScreen() {
         data={days}
         renderItem={({ item }) => <DayListItem day={item} />}
       />
+
+      <Link href={'/user'}>Go to user</Link>
 
       <StatusBar style="auto" />
     </View>
