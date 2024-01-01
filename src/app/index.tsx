@@ -38,8 +38,6 @@ export default function HomeScreen() {
         renderItem={({ item }) => <DayListItem day={item} />}
       />
 
-      <Link href={'/user'}>Go to user</Link>
-
       <StatusBar style="auto" />
     </View>
   );
