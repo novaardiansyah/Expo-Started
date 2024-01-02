@@ -5,12 +5,9 @@ import { FontAwesome5 } from '@expo/vector-icons';
 
 import { onboardingStep } from '@data/index'
 import { StatusBar } from 'expo-status-bar';
+import { Directions, Gesture, GestureDetector } from 'react-native-gesture-handler';
 
 const OnBoardingScreen = () => {
-  const [ screenIndex, setScreenIndex ] = useState(0)
-
-  const data = onboardingStep[screenIndex]
-
   const onContinue = () => {
     if (screenIndex < onboardingStep.length - 1) {
       setScreenIndex(screenIndex + 1)
@@ -18,6 +15,20 @@ const OnBoardingScreen = () => {
       endOnboarding()
     }
   }
+
+  const onBack = () => {
+    if (screenIndex > 0) {
+      setScreenIndex(screenIndex - 1)
+    } else {
+      endOnboarding()
+    }
+  }
+
+  const swipes = Gesture.Simultaneous(Gesture.Fling().direction(Directions.LEFT).onEnd(onContinue), Gesture.Fling().direction(Directions.RIGHT).onEnd(onBack))
+
+  const [ screenIndex, setScreenIndex ] = useState(0)
+
+  const data = onboardingStep[screenIndex]
 
   const endOnboarding = () => {
     setScreenIndex(0)
@@ -29,30 +40,32 @@ const OnBoardingScreen = () => {
       <Stack.Screen options={{  headerShown: false }} />
       <StatusBar style='light' />
 
-      <View style={styles.pageContent}>
-        <View style={styles.stepIndicatorContainer}>
-          { onboardingStep.map((step, index) => {
-            return (
-              <View style={[styles.stepIndicator, { backgroundColor: index === screenIndex ? '#FDFDFD' : 'gray' }]} key={`onboarding-${index}`} />
-            )
-          }) }
-        </View>
+      <GestureDetector gesture={swipes}>
+        <View style={styles.pageContent}>
+          <View style={styles.stepIndicatorContainer}>
+            { onboardingStep.map((step, index) => {
+              return (
+                <View style={[styles.stepIndicator, { backgroundColor: index === screenIndex ? '#FDFDFD' : 'gray' }]} key={`onboarding-${index}`} />
+              )
+            }) }
+          </View>
 
-        <FontAwesome5 style={styles.image} name={data?.icon} size={100} color="#CEF202" />
+          <FontAwesome5 style={styles.image} name={data?.icon} size={100} color="#CEF202" />
 
-        <View style={styles.footer}>
-          <Text style={styles.title}>{data?.title}</Text>
-          <Text style={styles.description}>{data?.description}</Text>
+          <View style={styles.footer}>
+            <Text style={styles.title}>{data?.title}</Text>
+            <Text style={styles.description}>{data?.description}</Text>
 
-          <View style={styles.buttonsRow}>
-            <Text style={styles.buttonText} onPress={endOnboarding}>Skip</Text>
+            <View style={styles.buttonsRow}>
+              <Text style={styles.buttonText} onPress={endOnboarding}>Skip</Text>
 
-            <Pressable style={styles.button} onPress={onContinue}>
-              <Text style={styles.buttonText}>Continue</Text>
-            </Pressable>
+              <Pressable style={styles.button} onPress={onContinue}>
+                <Text style={styles.buttonText}>Continue</Text>
+              </Pressable>
+            </View>
           </View>
         </View>
-      </View>
+      </GestureDetector>
     </SafeAreaView>
   )
 }

@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { ActivityIndicator } from "react-native";
 
 import * as SplashScreen from 'expo-splash-screen'
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 SplashScreen.preventAutoHideAsync()
 
 export default function RootLayout() {
@@ -26,8 +27,10 @@ export default function RootLayout() {
   if (!fontsLoaded && !fontError) return <ActivityIndicator />
 
   return (
-    <Stack>
-      <Stack.Screen name="index" options={{ title: 'Nova Ardiansyah' }} />
-    </Stack>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <Stack>
+        <Stack.Screen name="index" options={{ title: 'Nova Ardiansyah' }} />
+      </Stack>
+    </GestureHandlerRootView>
   )
 }
