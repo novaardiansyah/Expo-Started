@@ -1,7 +1,8 @@
-import { SafeAreaView, ScrollView, StyleSheet } from 'react-native'
 import React from 'react'
+import MarkdownDisplay from '@/components/day3/MarkdownDisplay'
 import { Stack } from 'expo-router'
-import Markdown from 'react-native-markdown-display'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { StyleSheet } from 'react-native'
 
 const markdown = `# Judul Dokumen
 
@@ -70,10 +71,8 @@ const EditorScreen = () => {
   return (
     <>
       <Stack.Screen options={{ title: 'Markdown Editor' }} /> 
-      <SafeAreaView style={styles.page}>
-        <ScrollView contentInsetAdjustmentBehavior="automatic" style={styles.content}>
-          <Markdown style={markdownStyle}>{markdown}</Markdown>
-        </ScrollView>
+      <SafeAreaView edges={['bottom']} style={styles.page}>
+        <MarkdownDisplay>{markdown}</MarkdownDisplay>
       </SafeAreaView>
     </>
   )
@@ -81,33 +80,8 @@ const EditorScreen = () => {
 
 export default EditorScreen
 
-const markdownStyle = StyleSheet.create({
-  heading1: {
-    fontFamily: 'Inter',
-    color: '#212020',
-    marginTop: 15,
-    marginBottom: 10,
-    lineHeight: 40
-  },
-  heading2: {
-    fontFamily: 'InterBold',
-    color: '#404040',
-    marginTop: 10,
-    marginBottom: 5,
-    lineHeight: 30
-  },
-  body: {
-    fontSize: 16,
-    lineHeight: 24
-  }
-})
-
 const styles = StyleSheet.create({
   page: {
-    backgroundColor: '#fff',
-  },
-  content: { 
-    height: '100%', 
-    paddingHorizontal: 20,
+    flex: 1
   }
 })
