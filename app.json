@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "test",
-    "slug": "test",
+    "slug": "expo-started",
     "scheme": "devember",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -22,7 +22,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.novaardiansyah.expostarted"
     },
     "web": {
       "favicon": "./assets/favicon.png",
@@ -33,6 +34,15 @@
     ],
     "experiments": {
       "tsconfigPaths": true
-    }
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": ""
+      }
+    },
+    "owner": "novaardiansyah"
   }
 }
