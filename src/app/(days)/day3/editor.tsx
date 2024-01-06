@@ -1,80 +1,41 @@
-import React from 'react'
-import MarkdownDisplay from '@/components/day3/MarkdownDisplay'
+import React, { useState } from 'react'
 import { Stack } from 'expo-router'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, View, TextInput, Text, Pressable } from 'react-native'
+import MarkdownDisplay from '@/components/day3/MarkdownDisplay'
 
-const markdown = `# Judul Dokumen
+const template = `
+Hello **World**
 
-Ini adalah teks paragraf pertama. Silakan gantilah dengan konten sesuai kebutuhan Anda.
+Hello **World**
 
-## Bagian 1
-
-Teks dalam bagian ini bisa diubah-ubah sesuai dengan topik yang Anda bahas.
-
-### Subbagian 1.1
-
-Ini adalah subbagian dari Bagian 1. Silakan tambahkan konten khusus di sini.
-
-## Bagian 2
-
-Tuliskan konten atau informasi tambahan dalam bagian ini.
-
-### Daftar
-
-- Item pertama dalam daftar.
-- Item kedua dalam daftar.
-- Item ketiga dalam daftar.
-
-### Gambar
-
-![Image](https://source.unsplash.com/random/?Cryptocurrency&2)
-
-### Link
-
-[Click Me](https://novaardiansyah.my.id)
-
-### Tabel
-
-| Kolom 1 | Kolom 2 |
-| ------- | ------- |
-| Baris 1  | Data 1  |
-| Baris 2  | Data 2  |
-| Baris 3  | Data 3  |
-
-## Catatan
-
-Tambahkan catatan atau informasi penting di sini.
-
-> Ini adalah kutipan penting.
-
-### Kode
-
-Inline \`code\`
-
-\`\`\`js
-  const geColors = (index) => {
-    let colors = ['#FF0000', '#00FF00', '#0000FF']
-    return colors[index] || colors[0]
-  }
-\`\`\`
-
-## Sumber
-
-Jangan lupa untuk mencantumkan sumber informasi jika diperlukan.
-
----
-
-Terima kasih!`
+Hello **World**
+`
 
 const EditorScreen = () => {
+  const [content, setContent] = useState(template)
+  const [tab, setTab] = useState('edit')
+
   return (
-    <>
+    <View style={styles.page}>
       <Stack.Screen options={{ title: 'Markdown Editor' }} /> 
-      <SafeAreaView edges={['bottom']} style={styles.page}>
-        <MarkdownDisplay>{markdown}</MarkdownDisplay>
-      </SafeAreaView>
-    </>
+
+      <View style={styles.tabsContainer}>
+        <Pressable onPress={() => setTab('edit')} style={styles.tab}>
+          <Text style={styles.tabText}>Edit</Text>
+        </Pressable>
+        <Pressable onPress={() => setTab('preview')} style={styles.tab}>
+          <Text style={styles.tabText}>Preview</Text>
+        </Pressable>
+      </View>
+
+      {
+        tab === 'edit' ? (
+          <TextInput value={content} multiline style={styles.input} onChangeText={setContent} numberOfLines={50} />
+        ) : (
+          <MarkdownDisplay>{content}</MarkdownDisplay>
+        )
+      }
+    </View>
   )
 }
 
@@ -82,6 +43,30 @@ export default EditorScreen
 
 const styles = StyleSheet.create({
   page: {
-    flex: 1
+    flex: 1,
+    backgroundColor: 'whitesmoke'
+  },
+  input: {
+    backgroundColor: '#fff',
+    flex: 1,
+    padding: 20,
+    fontSize: 16,
+    borderRadius: 10
+  },
+  tabsContainer: {
+    flexDirection: 'row',
+    margin: 10,
+    gap: 10
+  },
+  tab: {
+    flex: 1,
+    padding: 10,
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 10,
+    alignItems: 'center'
+  },
+  tabText: {
+    fontFamily: 'InterSemiBold'
   }
 })

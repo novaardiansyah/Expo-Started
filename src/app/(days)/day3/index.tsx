@@ -38,6 +38,7 @@ export default DayDetailScreen
 
 const styles = StyleSheet.create({
   page: {
-    flex: 1
+    flex: 1,
+    backgroundColor: '#fff'
   }
 })
