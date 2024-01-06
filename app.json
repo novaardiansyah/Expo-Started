@@ -10,7 +10,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#000000"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -40,7 +40,7 @@
         "origin": false
       },
       "eas": {
-        "projectId": ""
+        "projectId": "5d252cff-5204-4fa8-ab97-8419457343ca"
       }
     },
     "owner": "novaardiansyah"
