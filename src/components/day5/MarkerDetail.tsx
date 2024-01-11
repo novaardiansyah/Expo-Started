@@ -1,13 +1,15 @@
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { Image, StyleSheet, Text, View, ViewStyle } from 'react-native'
 import React from 'react'
+import { apartmentLocation } from '@/data'
 
 interface Props {
-    apartment: any
+  apartment: (typeof apartmentLocation)[0],
+  customStyle?: ViewStyle
 }
 
-const MarkerDetail = ({apartment}: Props) => {
+const MarkerDetail = ({ apartment, customStyle }: Props) => {
   return (
-    <View style={styles.wrapper}>
+    <View style={[styles.wrapper, customStyle]}>
       <Image source={{ uri: apartment?.image }} style={styles.image} />
       <View style={styles.right_content}>
         <Text style={styles.title}>
@@ -35,11 +37,7 @@ export default MarkerDetail
 
 const styles = StyleSheet.create({
   wrapper: {
-    position: 'absolute',
     backgroundColor: 'white',
-    bottom: 30,
-    left: 10,
-    right: 10,
     flexDirection: 'row',
     borderRadius: 20,
     overflow: 'hidden'
