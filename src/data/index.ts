@@ -16,7 +16,7 @@ const onboardingStep = [
   }
 ]
 
-const appartmentLocation = [
+const apartmentLocation = [
   {
     "id": 1,
     "latitude": -6.3048,
@@ -25,7 +25,7 @@ const appartmentLocation = [
     "title": "Modern 1-Bedroom Apartment",
     "numberOfStars": 4.5,
     "rating": 8.3,
-    "image": "https://example.com/image1.jpg"
+    "image": "https://source.unsplash.com/random/500x500/?house"
   },
   {
     "id": 2,
@@ -35,7 +35,7 @@ const appartmentLocation = [
     "title": "Charming Studio with Garden View",
     "numberOfStars": 5,
     "rating": 9.0,
-    "image": "https://example.com/image2.jpg"
+    "image": "https://source.unsplash.com/random/500x500/?hotel"
   },
   {
     "id": 3,
@@ -45,7 +45,7 @@ const appartmentLocation = [
     "title": "Cozy 2-Bedroom Hideaway",
     "numberOfStars": 4,
     "rating": 7.8,
-    "image": "https://example.com/image3.jpg"
+    "image": "https://source.unsplash.com/random/500x500/?metro"
   },
   {
     "id": 4,
@@ -55,7 +55,7 @@ const appartmentLocation = [
     "title": "Luxurious Penthouse Suite",
     "numberOfStars": 5,
     "rating": 9.7,
-    "image": "https://example.com/image4.jpg"
+    "image": "https://source.unsplash.com/random/500x500/?rent-building"
   },
   {
     "id": 5,
@@ -65,7 +65,7 @@ const appartmentLocation = [
     "title": "Elegant 3-Bedroom Apartment",
     "numberOfStars": 4.8,
     "rating": 8.9,
-    "image": "https://example.com/image5.jpg"
+    "image": "https://source.unsplash.com/random/500x500/?apartment"
   },
   {
     "id": 6,
@@ -75,7 +75,7 @@ const appartmentLocation = [
     "title": "Modern Loft with Skyline View",
     "numberOfStars": 4.5,
     "rating": 8.2,
-    "image": "https://example.com/image6.jpg"
+    "image": "https://source.unsplash.com/random/500x500/?building"
   },
   {
     "id": 7,
@@ -85,7 +85,7 @@ const appartmentLocation = [
     "title": "Comfortable 2-Bedroom Condo",
     "numberOfStars": 4.2,
     "rating": 7.5,
-    "image": "https://example.com/image7.jpg"
+    "image": "https://source.unsplash.com/random/500x500/?modern-house"
   },
   {
     "id": 8,
@@ -95,7 +95,7 @@ const appartmentLocation = [
     "title": "Exclusive Sea View Penthouse",
     "numberOfStars": 5,
     "rating": 9.8,
-    "image": "https://example.com/image8.jpg"
+    "image": "https://source.unsplash.com/random/500x500/?village-house"
   },
   {
     "id": 9,
@@ -105,7 +105,7 @@ const appartmentLocation = [
     "title": "Quaint Studio with Balcony",
     "numberOfStars": 4,
     "rating": 8.0,
-    "image": "https://example.com/image9.jpg"
+    "image": "https://source.unsplash.com/random/500x500/?beach-hotel"
   },
   {
     "id": 10,
@@ -115,8 +115,8 @@ const appartmentLocation = [
     "title": "Spacious Family-Friendly Apartment",
     "numberOfStars": 4.7,
     "rating": 8.7,
-    "image": "https://example.com/image10.jpg"
+    "image": "https://source.unsplash.com/random/500x500/?club-hotel"
   }
 ]
 
-export { onboardingStep }
+export { onboardingStep, apartmentLocation }
