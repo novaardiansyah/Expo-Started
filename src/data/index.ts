@@ -119,4 +119,57 @@ const apartmentLocation = [
   }
 ]
 
-export { onboardingStep, apartmentLocation }
+const tinderProfile = [
+  {
+    id: 1,
+    name: 'Nova Ardiansyah',
+    image: 'https://source.unsplash.com/random/500x500/?man,businnes-man'
+  },
+  {
+    id: 2,
+    name: 'Sasha Johnson',
+    image: 'https://source.unsplash.com/random/500x500/?woman,business-woman'
+  },
+  {
+    id: 3,
+    name: 'Alex Rodriguez',
+    image: 'https://source.unsplash.com/random/500x500/?man,entrepreneur'
+  },
+  {
+    id: 4,
+    name: 'Emily Thompson',
+    image: 'https://source.unsplash.com/random/500x500/?woman,professional'
+  },
+  {
+    id: 5,
+    name: 'Jake Miller',
+    image: 'https://source.unsplash.com/random/500x500/?man,office-worker'
+  },
+  {
+    id: 6,
+    name: 'Lily Smith',
+    image: 'https://source.unsplash.com/random/500x500/?woman,executive'
+  },
+  {
+    id: 7,
+    name: 'Daniel White',
+    image: 'https://source.unsplash.com/random/500x500/?man,manager'
+  },
+  {
+    id: 8,
+    name: 'Sophia Brown',
+    image: 'https://source.unsplash.com/random/500x500/?woman,ceo'
+  },
+  {
+    id: 9,
+    name: 'Ryan Taylor',
+    image: 'https://source.unsplash.com/random/500x500/?man,leader'
+  },
+  {
+    id: 10,
+    name: 'Isabella Garcia',
+    image: 'https://source.unsplash.com/random/500x500/?woman,professional'
+  }
+]
+
+export { onboardingStep, apartmentLocation, tinderProfile }
