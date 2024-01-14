@@ -2,18 +2,31 @@ import { Dimensions, Image, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { tinderProfile } from '@data/index'
 import { LinearGradient } from 'expo-linear-gradient'
+import Animated, { SharedValue, interpolate, useAnimatedStyle } from 'react-native-reanimated'
 
 export const tinderCardWidth = Dimensions.get('screen').width * .8
 
 interface TinderCardProps {
   user: (typeof tinderProfile)[0],
   numOfCards: number,
-  currentIndex: number
+  currentIndex: number,
+  activeIndex: SharedValue<number>
 }
 
-const TinderCard = ({ user, numOfCards, currentIndex }: TinderCardProps) => {
+const TinderCard = ({ user, numOfCards, currentIndex, activeIndex }: TinderCardProps) => {
+  const animatedCard = useAnimatedStyle(() => ({
+    opacity: interpolate(activeIndex.value, [currentIndex - 1, currentIndex, currentIndex + 1], [1 - 1 / 5, 1, 1])
+  }))
+
   return (
-    <View style={styles.card}>
+    <Animated.View style={[
+      styles.card, 
+      { 
+        zIndex: numOfCards - currentIndex,
+        transform: [{ translateY: -currentIndex * 30 }, { scale: 1 - currentIndex * 0.05 }],
+      },
+      animatedCard
+    ]}>
       <Image style={[StyleSheet.absoluteFillObject, styles.image]} source={{ uri: user?.image }} />
       
       <LinearGradient 
@@ -26,7 +39,7 @@ const TinderCard = ({ user, numOfCards, currentIndex }: TinderCardProps) => {
           {user?.name}
         </Text>
       </View>
-    </View>
+    </Animated.View>
   )
 }
 
