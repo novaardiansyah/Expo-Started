@@ -4,26 +4,57 @@ import { tinderProfile } from '@data/index'
 import { LinearGradient } from 'expo-linear-gradient'
 import Animated, { SharedValue, interpolate, useAnimatedStyle } from 'react-native-reanimated'
 
-export const tinderCardWidth = Dimensions.get('screen').width * .8
+export const screenWidth = Dimensions.get('screen').width
+export const tinderCardWidth = screenWidth * .8
 
 interface TinderCardProps {
   user: (typeof tinderProfile)[0],
   numOfCards: number,
   currentIndex: number,
   activeIndex: SharedValue<number>
+  translationX: SharedValue<number>
 }
 
-const TinderCard = ({ user, numOfCards, currentIndex, activeIndex }: TinderCardProps) => {
+const TinderCard = ({ user, numOfCards, currentIndex, activeIndex, translationX }: TinderCardProps) => {
   const animatedCard = useAnimatedStyle(() => ({
-    opacity: interpolate(activeIndex.value, [currentIndex - 1, currentIndex, currentIndex + 1], [1 - 1 / 5, 1, 1])
-  }))
+    opacity: interpolate(
+      activeIndex.value, 
+      [currentIndex - 1, currentIndex, currentIndex + 1], 
+      [1 - 1 / 5, 1, 1]
+    ),
+    transform: [
+      {
+        scale: interpolate(
+          activeIndex.value,
+          [currentIndex - 1, currentIndex, currentIndex + 1],
+          [0.95, 1, 1]
+        ),
+      }, 
+      { 
+        translateY: interpolate(
+          activeIndex.value, 
+          [currentIndex - 1, currentIndex, currentIndex + 1],
+          [-30, 0, 0]
+        ) 
+      },
+      {
+        translateX: activeIndex.value === currentIndex ? translationX.value : 0
+      },
+      {
+        rotateZ: activeIndex.value === currentIndex ? `${interpolate(
+          translationX.value,
+          [-screenWidth / 2, 0, screenWidth / 2],
+          [-15, 0, 15]
+        )}deg` : '0deg'
+      }
+    ]}
+  ))
 
   return (
     <Animated.View style={[
       styles.card, 
       { 
         zIndex: numOfCards - currentIndex,
-        transform: [{ translateY: -currentIndex * 30 }, { scale: 1 - currentIndex * 0.05 }],
       },
       animatedCard
     ]}>

@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import SplashAnimateScreen from '@/components/day4/splash'
 import Animated, { FadeIn } from 'react-native-reanimated'
+import { ActivityIndicator } from 'react-native'
 
 export default function RootLayout() {
   const [appReady, setAppReady] = useState(false)
