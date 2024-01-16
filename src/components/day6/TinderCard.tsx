@@ -2,7 +2,8 @@ import { Dimensions, Image, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { tinderProfile } from '@data/index'
 import { LinearGradient } from 'expo-linear-gradient'
-import Animated, { SharedValue, interpolate, useAnimatedStyle } from 'react-native-reanimated'
+import Animated, { SharedValue, interpolate, useAnimatedStyle, useDerivedValue, useSharedValue, withSpring } from 'react-native-reanimated'
+import { Gesture, GestureDetector } from 'react-native-gesture-handler'
 
 export const screenWidth = Dimensions.get('screen').width
 export const tinderCardWidth = screenWidth * .8
@@ -12,10 +13,11 @@ interface TinderCardProps {
   numOfCards: number,
   currentIndex: number,
   activeIndex: SharedValue<number>
-  translationX: SharedValue<number>
 }
 
-const TinderCard = ({ user, numOfCards, currentIndex, activeIndex, translationX }: TinderCardProps) => {
+const TinderCard = ({ user, numOfCards, currentIndex, activeIndex }: TinderCardProps) => {
+  const translationX = useSharedValue(0)
+
   const animatedCard = useAnimatedStyle(() => ({
     opacity: interpolate(
       activeIndex.value, 
@@ -38,7 +40,7 @@ const TinderCard = ({ user, numOfCards, currentIndex, activeIndex, translationX 
         ) 
       },
       {
-        translateX: activeIndex.value === currentIndex ? translationX.value : 0
+        translateX: translationX.value
       },
       {
         rotateZ: activeIndex.value === currentIndex ? `${interpolate(
@@ -50,27 +52,52 @@ const TinderCard = ({ user, numOfCards, currentIndex, activeIndex, translationX 
     ]}
   ))
 
-  return (
-    <Animated.View style={[
-      styles.card, 
-      { 
-        zIndex: numOfCards - currentIndex,
-      },
-      animatedCard
-    ]}>
-      <Image style={[StyleSheet.absoluteFillObject, styles.image]} source={{ uri: user?.image }} />
+  const gesture = Gesture.Pan()
+    .onChange((event) => {
+      translationX.value = event.translationX
       
-      <LinearGradient 
-        colors={['transparent', 'rgba(0, 0, 0, .8)']}
-        style={[StyleSheet.absoluteFillObject, styles.overlay]}
-      />
+      activeIndex.value = interpolate(
+        Math.abs(translationX.value),
+        [0, screenWidth],
+        [0, activeIndex.value + 0.8]
+      )
+    })
+    .onEnd((event) => {
+      if (Math.abs(event.velocityX) > 400) 
+      {
+        translationX.value = withSpring(
+          Math.sign(event.velocityX) * screenWidth, 
+          { velocity: event.velocityX }
+        )
+        activeIndex.value = withSpring(currentIndex + 1)
+      } else {
+        translationX.value = withSpring(0)
+      }
+    })
 
-      <View style={styles.footer}>
-        <Text style={styles.author}>
-          {user?.name}
-        </Text>
-      </View>
-    </Animated.View>
+  return (
+    <GestureDetector gesture={gesture}>
+      <Animated.View style={[
+        styles.card, 
+        { 
+          zIndex: numOfCards - currentIndex,
+        },
+        animatedCard
+      ]}>
+        <Image style={[StyleSheet.absoluteFillObject, styles.image]} source={{ uri: user?.image }} />
+        
+        <LinearGradient 
+          colors={['transparent', 'rgba(0, 0, 0, .8)']}
+          style={[StyleSheet.absoluteFillObject, styles.overlay]}
+        />
+
+        <View style={styles.footer}>
+          <Text style={styles.author}>
+            {user?.name}
+          </Text>
+        </View>
+      </Animated.View>
+    </GestureDetector>
   )
 }
 
